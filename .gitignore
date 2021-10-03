@@ -3,4 +3,5 @@ Riseholme-2021/*
 tb_logs/*
 saved_models/*
 *.pyc
+*.ipynb
 .ipynb_checkpoints/*
