@@ -1,3 +1,5 @@
+*"Under Construction"*
+
 # CH-Rand
 
 *Channel Randomisation* (CH-Rand) is the technique to augment image data by randomising the RGB channels to encourage neural networks to learn normal compositions of "colour" in self-supervised manners. 
@@ -74,6 +76,10 @@ Use `Configs/config.yaml` as a template to provide your own parameters if necess
 - `aug_mode`: One in {CH-Rand, CH-Perm, CH-Split} is usable, and read the paper above to learn how each works. 
 - `portion`: [0., 1.] to determine proportionally how many pixels get affected by the predefined randomisation &mdash; i.e., 0: None and 1: All pixels. For 0<`portion`<1, pixels of similar intensities are selected once the input image has been converted to its grayscale version.
 - `stop_criterion`: Training stops if the validation accuracy exceeds `val_acc_threshold` this number of times in a row.
+
+
+## Train
+
 
 
 # Citation
