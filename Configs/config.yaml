@@ -5,21 +5,21 @@
     
     normal_dir: ./Riseholme-2021/Data/Normal,
     anomalous_dir: ./Riseholme-2021/Data/Anomalous,
-    anomalous_ext: png,
-    img_size: 64,
+    anomalous_ext: png, # File extension of anomalous images
+    img_size: 64, # Target size to resize loaded images
 
     n_processors: 1, # Number of processes to augment data
-    lr: .000005, # Riseholme-2021
+    lr: .000005, # Riseholme-2021 # Learning rate
 #     lr: .000015, # Fresh-Stale
     fc_feat: True, # False, # Extract features from FC layer (True) or Conv layer (False)
     
     n_epochs: 1500,
     val_interval: 1, #30,
     test_interval: 1, #30,
-    epoch_size: 8, # Number of updates per epoch
+    epoch_size: 8, # Number of batch updates per epoch
     batch_size: 128, 
 
-    aug_mode: CH-Rand,
+    aug_mode: CH-Rand, # {CH-Rand, CH-Perm, CH-Split}
     portion: 1., # Portion of pixels to apply augmentation
     
     tensorboard_dir: ./tb_logs,

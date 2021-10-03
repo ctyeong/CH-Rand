@@ -136,12 +136,12 @@ def segmentation_ch_shuffle(x, sobel_app=False, rand_pixels=False, mode='CH-Rand
 #                 weights[i] = count/np.sum(top_counts)
                 weights[i] = 1 #len(top_counts)
         weights = weights/np.sum(weights)
-        shuffle_l = np.random.choice(np.arange(max_l+1), p=weights)
+        shuffle_l = random.choices(np.arange(max_l+1), weights=weights)
         mask[labeled == shuffle_l] = 1
 
     # n pixels in range (a, b) where n is delta*N
     else:
-        lower_ths = np.random.random() * (1 - delta) 
+        lower_ths = random.random() * (1 - delta) 
         upper_ths = lower_ths + delta
         lower = np.quantile(gray_img, lower_ths)
         upper = np.quantile(gray_img, upper_ths)
@@ -152,15 +152,11 @@ def segmentation_ch_shuffle(x, sobel_app=False, rand_pixels=False, mode='CH-Rand
     if mode == 'BLANK':
         img[mask] = 0
         chs = None
-    
-    elif mode == 'UNIFORM':
-        img[mask] = np.random.uniform(low=0., high=255., size=img[mask].shape)
-        chs = None
 
     # channel randomisation
     elif mode == 'CH-Rand':
         while True:
-            chs = np.random.choice(3, 3, replace=True)
+            chs = np.asarray(random.choices([0,1,2], k=3))
             if not np.all(chs == np.arange(3)):
                 break
         img[mask] = img[mask][..., chs]
@@ -174,13 +170,9 @@ def segmentation_ch_shuffle(x, sobel_app=False, rand_pixels=False, mode='CH-Rand
     
     # channel splitting
     elif mode == 'CH-Split':
-        chs = np.random.choice(3)
+        chs = random.choice([0,1,2])
         for i in range(3):
             img[mask, i] = img[mask][..., chs]
-
-    elif mode == 'AGN':
-        img[mask] = img[mask] + np.random.normal(scale=255*.1, size=img[mask].shape)
-        chs = None
                      
     else:
         print('No {} mode'.format(mode))

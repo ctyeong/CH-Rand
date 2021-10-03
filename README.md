@@ -15,11 +15,9 @@ After the proxy task, the learnt feature representations from a middle layer of 
 
 1. [Examples](https://github.com/ctyeong/CH-Rand#examples)
 1. [Installation](https://github.com/ctyeong/CH-Rand#installation)
-<!-- 1. [How to Use](https://github.com/ctyeong/Riseholme-2021#how-to-use)
-
-1. [Random Splits](https://github.com/ctyeong/Riseholme-2021#random-splits)
-
-1. [Benchmark Performance](https://github.com/ctyeong/Riseholme-2021#benchmark-performance) -->
+1. [Training](https://github.com/ctyeong/CH-Rand#Training)
+<!-- 1. [Random Splits](https://github.com/ctyeong/Riseholme-2021#random-splits)
+1. [Benchmark Performance](https://github.com/ctyeong/Riseholme-2021#benchmark-performance) --> 
 1. [Citation](https://github.com/ctyeong/CH-Rand#citation)
 1. [Contact](https://github.com/ctyeong/CH-Rand#contact)  
 
@@ -57,7 +55,25 @@ Three examples are displayed below, in each of which the original RGB image of s
     ```
     $ pip install -r requirements.txt
     ```
-    - Python 3.8 is assumed to be installed already
+    - Python 3.8 is assumed to be installed already.
+
+
+# Training
+
+## Dataset
+In this tutorial, we assume that [Riseholme-2021](https://github.com/ctyeong/Riseholme-2021) &mdash; the large image dataset for strawberry anomaly detection available [here](https://github.com/ctyeong/Riseholme-2021)
+&mdash; has been cloned inside the root directory of `CH-Rand`. 
+Even if a custom dataset is used, the current version of CH-Rand can be executed without major modification, as long as the same directory structure is adopted as in Riseholme-2021. 
+
+## Config File
+Prepare a configuration file with the extension of `.yaml` to pass required hyper parameters, such as data path, learning rate, image size, and so on. 
+Use `Configs/config.yaml` as a template to provide your own parameters as necessary. Some of the parameters are explained below:
+
+- `fc_feat`: Feature representation is extracted from the fully connected layer instead of the last convolutional layer during regular validations and tests.
+- `epoch_size`: One epoch consists of `epoch_size` batch updates as opposed to the traditional concept, where all training samples are involved per epoch.
+- `aug_mode`: CH-Rand, CH-Perm, and CH-Split are available, and read the paper above to learn how each works. 
+- `portion`: [0., 1.] to determine proportionally how many pixels get affected by randomisation, i.e., 0: None and 1: All pixels. Pixels of similar intensities are obtained once the input image has been converted to its grayscale version.
+- `stop_criterion`: Training stops if the validation accuracy exceeds `val_acc_threshold` this number of times in a row.
 
 
 # Citation
