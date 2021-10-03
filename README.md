@@ -48,6 +48,17 @@ Three examples are displayed below, in each of which the original RGB image of s
 
 # Installation
 
+1. Clone the repository
+    ```
+    $ git clone https://github.com/ctyeong/CH-Rand.git
+    ```
+
+2. Install the required Python packages
+    ```
+    $ pip install -r requirements.txt
+    ```
+    - Python 3.8 is assumed to be installed already
+
 
 # Citation
 ```
