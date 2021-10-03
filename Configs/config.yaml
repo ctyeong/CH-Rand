@@ -1,0 +1,29 @@
+{
+    train_split: ./Riseholme-2021/Splits/Split1/Split1-R-Train.txt,
+    val_split: ./Riseholme-2021/Splits/Split1/Split1-R-Val.txt,
+    test_split: ./Riseholme-2021/Splits/Split1/Split1-R-Test.txt, 
+    
+    normal_dir: ./Riseholme-2021/Data/Normal,
+    anomalous_dir: ./Riseholme-2021/Data/Anomalous,
+    anomalous_ext: png,
+    img_size: 64,
+
+    n_processors: 1, # Number of processes to augment data
+    lr: .000005, # Riseholme-2021
+#     lr: .000015, # Fresh-Stale
+    fc_feat: True, # False, # Extract features from FC layer (True) or Conv layer (False)
+    
+    n_epochs: 1500,
+    val_interval: 1, #30,
+    test_interval: 1, #30,
+    epoch_size: 8, # Number of updates per epoch
+    batch_size: 128, 
+
+    aug_mode: CH-Rand,
+    portion: 1., # Portion of pixels to apply augmentation
+    
+    tensorboard_dir: ./tb_logs,
+    model_dir: ./saved_models,
+    val_acc_threshold: .95, # Val_acc threshold for stopping criterion
+    stop_criterion: 5, # Stop training if this many times val_acc exceeds threshold in a row
+}
