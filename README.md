@@ -163,19 +163,23 @@ Evaluation results ================================
 
 # Performance on Riseholme-2021
 
-Here are brief evaluation results of CH-Rand and its variant &mdash; CH-Perm &mdash; on [Riseholme-2021](https://github.com/ctyeong/Riseholme-2021), but you are encouraged to read the paper above to find more extensive results with ablation studies. CH-Perm does not allow for repetition in RGB permuations, resulting in 5 possible channel-randomised images.
+Here are brief evaluation results of CH-Rand and its variant &mdash; CH-Perm &mdash; on [Riseholme-2021](https://github.com/ctyeong/Riseholme-2021), but you are encouraged to read the paper above to find more extensive results with settings in detail. CH-Perm is not to allow for repetition in RGB permuations, resulting in 5 possible channel-randomised images.
 <!-- - CH-Split: Value at an arbitrary channel is duplicated across other two, producing 3 possible channel-randomised images. -->
 
-| Normal Category |     CH-Perm (*k=1*) | CH-Perm (*k=5*) | CH-Rand (*k=1*) | CH-Rand (*k=5*) | 
-| --------------- | ------------------|---------------|---------------|---------------|
-| Ripe                     | .918 | **.922** | .920     | **.922** | 
-| Unripe                   | .874 | **.876** | .873     | .870     | 
-| Ripe & Unripe            | .826 | .829     | .834     | **.838** | 
-| Ripe & Unripe & Occluded | .795 | .790     | **.804** | .796 | 
+| Normal Category | Metrics  |   CH-Perm (*k=1*) | CH-Perm (*k=5*) | CH-Rand (*k=1*) | CH-Rand (*k=5*) | 
+| --------------- | ---------| ------------------|---------------|---------------|---------------|
+| Ripe                     | ROC | .918 | **.922** | .920     | **.922** | 
+|                          | PR  | .949 | .954     | .955     | **.957** | 
+| Unripe                   | ROC | .874 | **.876** | .873     | .870     | 
+|                          | PR  | .709 | .721     | .755     | **.765** | 
+| Ripe & Unripe            | ROC | .826 | .829     | .834     | **.838** | 
+|                          | PR  | .572 | .580     | .607     | **.615** | 
+| Ripe & Unripe & Occluded | ROC | .795 | .790     | **.804** | .796 | 
+|                          | PR  | .458 | .436     | **.496** | .484 | 
 
-* Each score is the average AUC-ROC from three individual test runs on Split 1. 
+* Each score is the average AUC from three individual test runs on Split 1. 
 * *k* represents the number of nearest neighbors considered for distance calculation.
-* Images from normal category were available during training for classification against anomalous strawberry images in tests 
+* Images from normal category were available during training for detection of anomalous strawberry images in tests 
 
 
 # Citation
