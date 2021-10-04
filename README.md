@@ -2,15 +2,20 @@
 
 # CH-Rand
 
-*Channel Randomisation* (CH-Rand) is the technique to augment image data by randomising the RGB channels to encourage neural networks to learn normal compositions of "colour" in self-supervised manners. 
+*Channel Randomisation* (CH-Rand) is the image augmentation technique for "self-supervised learning" of deep neural networks. In particular, CH-Rand randomises the RGB channels in images to encourage neural networks to learn anomalous "colour" compositions whilst classyfing the channel-randomised images
+&mdash; a *pretext* task to learn colour-based representations.
+
 This repository is the official release of the codes used for the following preprint: 
 
 *"Self-supervised Representation Learning for Reliable Robotic Monitoring of Fruit Anomalies", Taeyeong Choi, Owen Would, Adrian Salazar-Gomez, and Grzegorz Cielniak, Available at [\[arXiv:2109.10135\]](https://arxiv.org/abs/2109.10135).* 
 
-As explained in the paper, CH-Rand has been designed for "agricultural robots" to successfully solve *fruit anomaly detection* problem in the [One-class Classification](https://en.wikipedia.org/wiki/One-class_classification) scenario, in which classifiers can only access the data of normal instances during training but must be able to identify anomalous instances in test. 
-For self-supervised learning, CH-Rand is used to set up the pretext task to classify randomised images `x'=CHR(x)`, where `CHR` permutes the RGB channels in the normal image `x` with a possibility of repeatition (e.g., RRR, RRG, RRB, RGR, ..., or BBB) &mdash; i.e., 26 possible permuations for `x'` exist excluding RGB, as shown in [Examples](https://github.com/ctyeong/CH-Rand#examples) below.
+As explained in the paper, CH-Rand has been designed for "agricultural robots" to successfully solve *fruit anomaly detection* problem in the [One-class Classification](https://en.wikipedia.org/wiki/One-class_classification) scenario, in which the classifiers can only access the data of normal fruit instances but must be able to detect anomalous fruits from tested images. 
+For self-supervised learning, CH-Rand provides the *pretext* task to classify randomised images `x'=CHR(x)`, where `CHR` permutes the RGB channels in some normal image `x` with a possibility of repeatition (e.g., RRR, RRG, RRB, RGR, ..., or BBB) &mdash; i.e., 26 possible permuation outcomes for `x'` exist excluding RGB, as shown in [Examples](https://github.com/ctyeong/CH-Rand#examples) below.
 
-After the proxy task, the learnt feature representations from a middle layer of the classifier can then be utilised to measure the degree of anomaly for tested image samples. To be specific, for each test input, the mean Euclidean distance to the *k* nearest neighbors in the training set is calculated as anomaly score supposing that anomalous images would tend to produce higher mean distances.
+After the pretext task, the learnt feature *representations* from a middle layer of the classifier can then be utilised to measure the degree of anomaly for tested image samples. More specifically, for each test input, the mean *Euclidean* distance to the *k* nearest neighbors in the training set is calculated as anomaly score supposing that anomalous images would tend to produce higher mean distances.
+
+Note that CH-Rand also has appeared in Jack Clark's weekly newsletter on AI:
+[Import AI 267: Tigers VS humans; synthetic voices; agri-robots](https://jack-clark.net/2021/09/27/import-ai-267-tigers-vs-humans-synthetic-voices-agri-robots/). This was a very informative introduction where even busy readers could easily understand from the concise paragraphs the main strengths and distictions in CH-Rand. 
 
 
 # Contents
@@ -62,6 +67,11 @@ Three examples are displayed below, in each of which the original RGB image of s
 
 # Training
 
+Training is learning 
+For training, you need: 
+- Dataset 
+- Config File 
+
 ## Dataset
 In this tutorial, we assume that [Riseholme-2021](https://github.com/ctyeong/Riseholme-2021) &mdash; the large image dataset for strawberry anomaly detection available [here](https://github.com/ctyeong/Riseholme-2021)
 &mdash; has been cloned inside the root directory of `CH-Rand`. 
@@ -105,7 +115,7 @@ $ python train.py -c Config/config.yaml
     ......
     ......
     ```
-- The training will continue until either the `stop_criterion` is met, or `n_epochs` has passed.
+- Training will continue until either the `stop_criterion` is met, or `n_epochs` has passed.
 - While the training is performed, you can monitor the progress using [Tensorboard](https://www.tensorflow.org/tensorboard). Under the default settings, run the below command in another terminal session:
     ```
     $ tensorboard --logdir=tb_logs
