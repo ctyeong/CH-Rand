@@ -21,7 +21,6 @@ After the proxy task, the learnt feature representations from a middle layer of 
 1. [Test](https://github.com/ctyeong/CH-Rand#test)
 1. [Performance](https://github.com/ctyeong/CH-Rand#performance)
 1. [Citation](https://github.com/ctyeong/CH-Rand#citation)
-1. [Citation](https://github.com/ctyeong/CH-Rand#citation)
 1. [Contact](https://github.com/ctyeong/CH-Rand#contact)  
 
 # Examples 
@@ -107,13 +106,14 @@ $ python train.py -c Config/config.yaml
     ......
     ```
 - The training will continue until either the `stop_criterion` is met, or `n_epochs` has passed.
-- While the training is performed, you can monitor the progress using [Tensorboard](https://www.tensorflow.org/tensorboard). Under the default settings, run in another terminal session:
+- While the training is performed, you can monitor the progress using [Tensorboard](https://www.tensorflow.org/tensorboard). Under the default settings, run the below command in another terminal session:
     ```
     $ tensorboard --logdir=tb_logs
     ```
     - Match `tb_logs` with the path for `tensorboard_dir` in your config file.
 
-<!-- Once the training has ended,  -->
+As the training ends, the best model with the maximum validation accuracy has been saved at `model_dir` set in your config file &mdash; e.g., `saved_models/20211001-201050.h5`, with the file name deteremined by the time that `train.py` was executed. This file contains the weights of the trained classifier, which are necessary to run [Test](https://github.com/ctyeong/CH-Rand#test).
+
 
 # Test
 
