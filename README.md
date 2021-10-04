@@ -1,5 +1,3 @@
-*"Under Construction"*
-
 # Channel Randomisation (CH-Rand)
 
 This repository is the official release of the codes used for the following preprint: 
@@ -162,7 +160,22 @@ Evaluation results ================================
 10 neighbor(s): AUC-ROC = 0.915, AUC-PR = 0.950
 ```
 
-# Performance 
+
+# Performance on Riseholme-2021
+
+Here are brief evaluation results of CH-Rand and its variant &mdash; CH-Perm &mdash; on [Riseholme-2021](https://github.com/ctyeong/Riseholme-2021), but you are encouraged to read the paper above to find more extensive results with ablation studies. CH-Perm does not allow for repetition in RGB permuations, resulting in 5 possible channel-randomised images.
+<!-- - CH-Split: Value at an arbitrary channel is duplicated across other two, producing 3 possible channel-randomised images. -->
+
+| Normal Category |     CH-Perm (*k=1*) | CH-Perm (*k=5*) | CH-Rand (*k=1*) | CH-Rand (*k=5*) | 
+| --------------- | ------------------|---------------|---------------|---------------|
+| Ripe                     | .918 | **.922** | .920     | **.922** | 
+| Unripe                   | .874 | **.876** | .873     | .870     | 
+| Ripe & Unripe            | .826 | .829     | .834     | **.838** | 
+| Ripe & Unripe & Occluded | .795 | .790     | **.804** | .796 | 
+
+* Each score is the average AUC-ROC from three individual test runs on Split 1. 
+* *k* represents the number of nearest neighbors considered for distance calculation.
+* Images from normal category were available during training for classification against anomalous strawberry images in tests 
 
 
 # Citation
