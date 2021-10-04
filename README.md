@@ -2,20 +2,21 @@
 
 # CH-Rand
 
-*Channel Randomisation* (CH-Rand) is the image augmentation technique for "self-supervised learning" of deep neural networks. In particular, CH-Rand randomises the RGB channels in images to encourage neural networks to learn anomalous "colour" compositions whilst classyfing the channel-randomised images
-&mdash; a *pretext* task to learn colour-based representations.
-
 This repository is the official release of the codes used for the following preprint: 
 
-*"Self-supervised Representation Learning for Reliable Robotic Monitoring of Fruit Anomalies", Taeyeong Choi, Owen Would, Adrian Salazar-Gomez, and Grzegorz Cielniak, Available at [\[arXiv:2109.10135\]](https://arxiv.org/abs/2109.10135).* 
+* **"Self-supervised Representation Learning for Reliable Robotic Monitoring of Fruit Anomalies"**. Taeyeong Choi, Owen Would, Adrian Salazar-Gomez, and Grzegorz Cielniak.* [\[arXiv:2109.10135\]](https://arxiv.org/abs/2109.10135) 
 
-As explained in the paper, CH-Rand has been designed for "agricultural robots" to successfully solve *fruit anomaly detection* problem in the [One-class Classification](https://en.wikipedia.org/wiki/One-class_classification) scenario, in which the classifiers can only access the data of normal fruit instances but must be able to detect anomalous fruits from tested images. 
-For self-supervised learning, CH-Rand provides the *pretext* task to classify randomised images `x'=CHR(x)`, where `CHR` permutes the RGB channels in some normal image `x` with a possibility of repeatition (e.g., RRR, RRG, RRB, RGR, ..., or BBB) &mdash; i.e., 26 possible permuation outcomes for `x'` exist excluding RGB, as shown in [Examples](https://github.com/ctyeong/CH-Rand#examples) below.
+**Channel Randomisation** (CH-Rand) is the image augmentation technique for "self-supervised learning" of deep neural networks. In particular, CH-Rand randomises the RGB channels in images to encourage neural networks to learn anomalous "colour" compositions whilst classyfing the channel-randomised images
+&mdash; a *pretext* task to learn colour-based representations.
 
-After the pretext task, the learnt feature *representations* from a middle layer of the classifier can then be utilised to measure the degree of anomaly for tested image samples. More specifically, for each test input, the mean *Euclidean* distance to the *k* nearest neighbors in the training set is calculated as anomaly score supposing that anomalous images would tend to produce higher mean distances.
+**Agricultural robots** are targeted plantforms to build vision systems with CH-Rand to successfully solve *fruit anomaly detection* problem. In particular, [One-class Classification](https://en.wikipedia.org/wiki/One-class_classification) is considered, in which the classifiers can only access the data of normal fruit instances but must be able to detect anomalous fruits from tested images. 
 
-Note that CH-Rand also has appeared in Jack Clark's weekly newsletter on AI:
-[Import AI 267: Tigers VS humans; synthetic voices; agri-robots](https://jack-clark.net/2021/09/27/import-ai-267-tigers-vs-humans-synthetic-voices-agri-robots/). This was a very informative introduction where even busy readers could easily understand from the concise paragraphs the main strengths and distictions in CH-Rand. 
+**A pretext task** for self-supervised learning is configured by CH-Rand, in which a classifier is to detect randomised images `x'=CHR(x)`, where `CHR` permutes the RGB channels in some normal image `x` with a possibility of repeatition (e.g., RRR, RRG, RRB, RGR, ..., or BBB) &mdash; i.e., 26 possible permuation outcomes for `x'` exist excluding RGB, as shown in [Examples](https://github.com/ctyeong/CH-Rand#examples) below.
+
+**Representations** learnt at a middle layer of the classifier during the pretext task can then be utilised to measure the degree of anomaly for tested image samples. More specifically, for each test input, the mean *Euclidean* distance to the *k* nearest neighbors in the training set is calculated as anomaly score supposing that anomalous images would tend to produce higher mean distances.
+
+**Another useful reading** is the following article from Jack Clark's weekly newsletter on AI:
+[Import AI 267: Tigers VS humans; synthetic voices; agri-robots](https://jack-clark.net/2021/09/27/import-ai-267-tigers-vs-humans-synthetic-voices-agri-robots/). This was a very informative introduction where even busy readers could easily understand from his concise paragraphs the main strengths and distictions in CH-Rand. 
 
 
 # Contents
@@ -67,10 +68,10 @@ Three examples are displayed below, in each of which the original RGB image of s
 
 # Training
 
-Training is learning 
+Training is performed on a deep-network classifier to differentiate channel-randomised images from the images without manipulation. 
 For training, you need: 
-- Dataset 
-- Config File 
+1. Dataset 
+1. Config File 
 
 ## Dataset
 In this tutorial, we assume that [Riseholme-2021](https://github.com/ctyeong/Riseholme-2021) &mdash; the large image dataset for strawberry anomaly detection available [here](https://github.com/ctyeong/Riseholme-2021)
