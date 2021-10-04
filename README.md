@@ -72,8 +72,8 @@ Three examples are displayed below, in each of which the original RGB image of s
 
 # Training
 
-Training is performed on a deep-network classifier to differentiate channel-randomised images from the images without manipulation. 
-For training, you need: 
+Training is performed on a deep-network classifier to differentiate channel-randomised images from the images without any randomisation. 
+For training, you essentially need: 
 1. Dataset 
 1. Config File 
 
