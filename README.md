@@ -110,9 +110,9 @@ $ python train.py -c Config/config.yaml
     ```
     $ tensorboard --logdir=tb_logs
     ```
-    - Match `tb_logs` with the path for `tensorboard_dir` in your config file.
+    - Match `tb_logs` with the path of `tensorboard_dir` in your config file.
 
-As the training ends, the best model with the maximum validation accuracy has been saved at `model_dir` set in your config file &mdash; e.g., `saved_models/20211001-201050.h5`, with the file name deteremined by the time that `train.py` was executed. This file contains the weights of the trained classifier, which are necessary to run [Test](https://github.com/ctyeong/CH-Rand#test).
+As the training ends, the best model with the maximum validation accuracy has been saved at `model_dir` set in your config file &mdash; e.g., `saved_models/20211001-201050.h5`, with the file name deteremined by the execution time of `train.py`. This file basically contains the weights of the trained classifier, which are essential to run [Test](https://github.com/ctyeong/CH-Rand#test).
 
 
 # Test
