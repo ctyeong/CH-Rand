@@ -166,7 +166,7 @@ Evaluation results ================================
 Here are brief evaluation results of CH-Rand and its variant &mdash; CH-Perm &mdash; on [Riseholme-2021](https://github.com/ctyeong/Riseholme-2021), but you are encouraged to read the paper above to find more extensive results with settings in detail. CH-Perm is not to allow for repetition in RGB permuations, resulting in 5 possible channel-randomised images.
 <!-- - CH-Split: Value at an arbitrary channel is duplicated across other two, producing 3 possible channel-randomised images. -->
 
-| Normal Category | Metrics  |   CH-Perm (*k=1*) | CH-Perm (*k=5*) | CH-Rand (*k=1*) | CH-Rand (*k=5*) | 
+| Normal Category | Metric  |   CH-Perm (*k=1*) | CH-Perm (*k=5*) | CH-Rand (*k=1*) | CH-Rand (*k=5*) | 
 | --------------- | ---------| ------------------|---------------|---------------|---------------|
 | Ripe                     | ROC | .918 | **.922** | .920     | **.922** | 
 |                          | PR  | .949 | .954     | .955     | **.957** | 
@@ -174,8 +174,8 @@ Here are brief evaluation results of CH-Rand and its variant &mdash; CH-Perm &md
 |                          | PR  | .709 | .721     | .755     | **.765** | 
 | Ripe & Unripe            | ROC | .826 | .829     | .834     | **.838** | 
 |                          | PR  | .572 | .580     | .607     | **.615** | 
-| Ripe & Unripe & Occluded | ROC | .795 | .790     | **.804** | .796 | 
-|                          | PR  | .458 | .436     | **.496** | .484 | 
+| Ripe & Unripe            | ROC | .795 | .790     | **.804** | .796 | 
+|  & Occluded              | PR  | .458 | .436     | **.496** | .484 | 
 
 * Each score is the average AUC from three individual test runs on Split 1. 
 * *k* represents the number of nearest neighbors considered for distance calculation.
