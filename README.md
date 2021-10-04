@@ -63,7 +63,7 @@ Three examples are displayed below, in each of which the original RGB image of s
 
 2. Install the required Python packages
     ```
-    $ pip install -r requirements.txt
+    $ pip install -r requirements.txt -f https://download.pytorch.org/whl/torch_stable.html
     ```
     - Python 3.8 is assumed to be installed already.
 
