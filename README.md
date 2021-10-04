@@ -4,14 +4,18 @@
 
 This repository is the official release of the codes used for the following preprint: 
 
-* **"Self-supervised Representation Learning for Reliable Robotic Monitoring of Fruit Anomalies"**. Taeyeong Choi, Owen Would, Adrian Salazar-Gomez, and Grzegorz Cielniak.* [\[arXiv:2109.10135\]](https://arxiv.org/abs/2109.10135) 
+***"Self-supervised Representation Learning for Reliable Robotic Monitoring of Fruit Anomalies"**. Taeyeong Choi, Owen Would, Adrian Salazar-Gomez, and Grzegorz Cielniak.* [\[arXiv:2109.10135\]](https://arxiv.org/abs/2109.10135) 
+
+![](Figs/camera_rig.jpg)
 
 **Channel Randomisation** (CH-Rand) is the image augmentation technique for "self-supervised learning" of deep neural networks. In particular, CH-Rand randomises the RGB channels in images to encourage neural networks to learn anomalous "colour" compositions whilst classyfing the channel-randomised images
 &mdash; a *pretext* task to learn colour-based representations.
 
-**Agricultural robots** are targeted plantforms to build vision systems with CH-Rand to successfully solve *fruit anomaly detection* problem. In particular, [One-class Classification](https://en.wikipedia.org/wiki/One-class_classification) is considered, in which the classifiers can only access the data of normal fruit instances but must be able to detect anomalous fruits from tested images. 
+**Agricultural robots** (e.g., Thovald above) are targeted plantforms to build vision systems with CH-Rand to successfully solve *fruit anomaly detection* problem. In particular, [One-class Classification](https://en.wikipedia.org/wiki/One-class_classification) is considered, in which the classifiers can only access the data of normal fruit instances but must be able to detect anomalous fruits from tested images. 
 
-**A pretext task** for self-supervised learning is configured by CH-Rand, in which a classifier is to detect randomised images `x'=CHR(x)`, where `CHR` permutes the RGB channels in some normal image `x` with a possibility of repeatition (e.g., RRR, RRG, RRB, RGR, ..., or BBB) &mdash; i.e., 26 possible permuation outcomes for `x'` exist excluding RGB, as shown in [Examples](https://github.com/ctyeong/CH-Rand#examples) below.
+**A pretext task** for self-supervised learning is configured by CH-Rand, in which a classifier is to detect randomised images `x'=CHR(x)`, where `CHR` permutes the RGB channels in some normal image `x` with a possibility of repeatition (e.g., RRR, RRG, RRB, RGR, ..., or BBB) &mdash; i.e., 26 possible permuation outcomes for `x'` exist excluding RGB, as shown below and in more in [Examples](https://github.com/ctyeong/CH-Rand#examples).
+
+![](Figs/rands.png)
 
 **Representations** learnt at a middle layer of the classifier during the pretext task can then be utilised to measure the degree of anomaly for tested image samples. More specifically, for each test input, the mean *Euclidean* distance to the *k* nearest neighbors in the training set is calculated as anomaly score supposing that anomalous images would tend to produce higher mean distances.
 
