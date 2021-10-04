@@ -33,7 +33,7 @@ config = yaml.safe_load(config_file)
 '''
 Load image files: train, val, test_norm, test_anom 
 '''
-print('Image data loaded ================================')
+print('\nImage data loaded ================================')
 
 train_img_paths = utils.load_img_paths(config['train_split'])
 train_x = utils.load_imgs(config['normal_dir'], train_img_paths, config['img_size'])
@@ -51,7 +51,7 @@ test_anom_x = utils.load_imgs('', test_anom_img_paths, config['img_size'])
 '''
 Prep for model to train
 '''
-print('Model created ================================')
+print('\nModel created ================================')
 in_size = (config['img_size'], config['img_size'], 3)
 
 model = Cls(n_cls=1)
@@ -138,7 +138,7 @@ for e in range(config['n_epochs']):
 
         # Evaluate
         rocs, prs = [], []
-        for n in [1, 3, 5]:
+        for n in config['n_neighbors']:
             neigh = NearestNeighbors(n_neighbors=n, algorithm='auto')
             neigh.fit(train_outs)
             test_norm_dists = np.mean(neigh.kneighbors(test_norm_outs)[0], -1)
