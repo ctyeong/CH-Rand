@@ -9,13 +9,12 @@
     img_size: 64, # Target size to resize loaded images
 
     n_processors: 1, # Number of processes to augment data
-    lr: .000005, # Riseholme-2021 # Learning rate
-#     lr: .000015, # Fresh-Stale
-    fc_feat: True, # False, # Extract features from FC layer (True) or Conv layer (False)
+    lr: .000005, # Learning rate
+    fc_feat: True, # Extract features from FC layer (True) or Conv layer (False)
     
     n_epochs: 1500,
-    val_interval: 1, #30,
-    test_interval: 1, #30,
+    val_interval: 30,
+    test_interval: 30,
     n_neighbors: [1, 3, 5, 10], # Numbers of neighbors for distance calculation
     epoch_size: 8, # Number of batch updates per epoch
     batch_size: 128, 
@@ -29,6 +28,6 @@
     stop_criterion: 5, # Stop training if this many times val_acc exceeds threshold in a row
 
     test:{
-        model_path: ./saved_models/20211003-213051.h5,
+        model_path: ./saved_models/20211001-201050.h5,
     }
 }
