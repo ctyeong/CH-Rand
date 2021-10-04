@@ -133,7 +133,34 @@ As the training ends, the best model with the maximum validation accuracy has be
 
 # Test
 
+Similar to training, you need the dataset and config file &mdash; e.g., `Configs/config.yaml`. The additional parameter in the config file is
+`model_path` nested under `test`. 
+Set it to the path generated under `model_dir` after training as the below example:
 
+```
+...
+test:{
+    model_path: saved_models/20211001-201050.h5
+}
+```
+
+Now you are ready to run the test: 
+
+```
+$ python test.py -c Configs/config.yaml 
+```
+
+You will see your model loaded and the final evaluation results on test data as the below example depending on its performance:
+
+```
+......
+......
+Evaluation results ================================
+1 neighbor(s): AUC-ROC = 0.908, AUC-PR = 0.941
+3 neighbor(s): AUC-ROC = 0.912, AUC-PR = 0.947
+5 neighbor(s): AUC-ROC = 0.913, AUC-PR = 0.949
+10 neighbor(s): AUC-ROC = 0.915, AUC-PR = 0.950
+```
 
 # Performance 
 
