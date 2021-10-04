@@ -152,7 +152,7 @@ for e in range(config['n_epochs']):
             pre, rec, _ = precision_recall_curve(true_labels, y_hats)
             rocs.append(auc(fpr, tpr))
             prs.append(auc(rec, pre))
-            print('# neighbors={}, AUC-ROC = {:.3f}, AUC-PR = {:.3f}'.format(n, rocs[-1], prs[-1]))
+            print('# of neighbors={}, AUC-ROC = {:.3f}, AUC-PR = {:.3f}'.format(n, rocs[-1], prs[-1]))
 
         # Log best performance into Tensorboard
         roc_score = np.max(rocs)

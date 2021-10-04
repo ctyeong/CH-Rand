@@ -79,8 +79,41 @@ Use `Configs/config.yaml` as a template to provide your own parameters if necess
 - `stop_criterion`: Training stops if the validation accuracy exceeds `val_acc_threshold` this number of times in a row.
 
 
-## Train
+## Learning Pretext Task
 
+Run the following command to train a deep-network classifier to differentiate the images `x` and the channel-randomised images `x'`:
+```
+$ python train.py -c Config/config.yaml
+```
+- Replace the config file `Config/config.yaml` with your own if you have one. You will see the outputs as below depending on your hyperparameters in the config file:
+    ```
+    ......
+    ......
+    Fit ================================
+    Epoch 26/26
+    8/8 - 0s - loss: 1.2755 - accuracy: 0.9404 - val_loss: 1.6665 - val_accuracy: 0.6279
+    0.460 seconds to fit the model with lr=5.0e-06
+
+    Test ================================
+    # of neighbors=1, AUC-ROC = 0.904, AUC-PR = 0.938
+    # of neighbors=3, AUC-ROC = 0.908, AUC-PR = 0.944
+    # of neighbors=5, AUC-ROC = 0.910, AUC-PR = 0.946
+    25.000: AUC-ROC = 0.910, AUC-PR = 0.946
+    2.266 seconds to test the model
+
+    Validate ================================
+    no change to the max val_accuracy=0.732
+    ......
+    ......
+    ```
+- The training will continue until either the `stop_criterion` is met, or `n_epochs` has passed.
+- While the training is performed, you can monitor the progress using [Tensorboard](https://www.tensorflow.org/tensorboard). Under the default settings, run in another terminal session:
+    ```
+    $ tensorboard --logdir=tb_logs
+    ```
+    - Match `tb_logs` with the path for `tensorboard_dir` in your config file.
+
+<!-- Once the training has ended,  -->
 
 # Test
 
