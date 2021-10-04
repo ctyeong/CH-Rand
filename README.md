@@ -86,7 +86,8 @@ Even if a custom dataset is used, the current version of CH-Rand can be executed
 Prepare a configuration file with the extension of `.yaml` to pass required hyper parameters, such as data path, learning rate, image size, and extras. 
 Use `Configs/config.yaml` as a template to provide your own parameters if necessary. Some of the parameters are explained below:
 
-- `fc_feat`: Feature representations are extracted from the fully connected layer instead of the last convolutional layer during regular validations and tests.
+- `fc_feat`: Feature representations are extracted from the fully connected layer instead of the last convolutional layer during regular tests.
+- `n_neighbors`: Numbers of neighbors to use for distance calculation in regular tests.
 - `epoch_size`: One epoch consists of `epoch_size` batch updates as opposed to the traditional concept, where all training samples are involved per epoch.
 - `aug_mode`: One in {CH-Rand, CH-Perm, CH-Split} is usable, and read the paper above to learn how each works. 
 - `portion`: [0., 1.] to determine proportionally how many pixels get affected by the predefined randomisation &mdash; i.e., 0: None and 1: All pixels. For 0<`portion`<1, pixels of similar intensities are selected once the input image has been converted to its grayscale version.
@@ -131,6 +132,7 @@ As the training ends, the best model with the maximum validation accuracy has be
 
 
 # Test
+
 
 
 # Performance 
