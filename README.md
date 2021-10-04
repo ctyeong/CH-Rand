@@ -27,7 +27,7 @@ This repository is the official release of the codes used for the following prep
 1. [Installation](https://github.com/ctyeong/CH-Rand#installation)
 1. [Training](https://github.com/ctyeong/CH-Rand#training)
 1. [Test](https://github.com/ctyeong/CH-Rand#test)
-1. [Performance](https://github.com/ctyeong/CH-Rand#performance)
+1. [Performance on Riseholme-2021](https://github.com/ctyeong/CH-Rand#performance-on-riseholme-2021)
 1. [Citation](https://github.com/ctyeong/CH-Rand#citation)
 1. [Contact](https://github.com/ctyeong/CH-Rand#contact)  
 
