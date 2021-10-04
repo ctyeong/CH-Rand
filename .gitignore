@@ -1,7 +1,7 @@
-_pycache_/*
-Riseholme-2021/*
-tb_logs/*
-saved_models/*
+_pycache_
+Riseholme-2021
+tb_logs
+saved_models
 *.pyc
 *.ipynb
-.ipynb_checkpoints/*
+.ipynb_checkpoints
