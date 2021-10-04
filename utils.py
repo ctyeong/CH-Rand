@@ -1,9 +1,6 @@
 import numpy as np
 from PIL import Image
 import os
-import matplotlib.pyplot as plt
-from skimage.filters import sobel
-from skimage.segmentation import watershed
 from scipy import ndimage as ndi
 from multiprocessing import Pool
 from itertools import repeat
