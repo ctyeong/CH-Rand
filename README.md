@@ -1,6 +1,6 @@
 *"Under Construction"*
 
-# CH-Rand
+# Channel Randomisation (CH-Rand)
 
 This repository is the official release of the codes used for the following preprint: 
 
@@ -11,9 +11,11 @@ This repository is the official release of the codes used for the following prep
 **Channel Randomisation** (CH-Rand) is the image augmentation technique for "self-supervised learning" of deep neural networks. In particular, CH-Rand randomises the RGB channels in images to encourage neural networks to learn anomalous "colour" compositions whilst classyfing the channel-randomised images
 &mdash; a *pretext* task to learn colour-based representations.
 
-**Agricultural robots** (e.g., Thovald above) are targeted plantforms to build vision systems with CH-Rand to successfully solve *fruit anomaly detection* problem. In particular, [One-class Classification](https://en.wikipedia.org/wiki/One-class_classification) is considered, in which the classifiers can only access the data of normal fruit instances but must be able to detect anomalous fruits from tested images. 
+**Agricultural robots** (e.g., Thovald above) are targeted plantforms to build vision systems with CH-Rand to successfully solve **fruit anomaly detection** problem. In particular, [One-class Classification](https://en.wikipedia.org/wiki/One-class_classification) is considered, in which the classifiers can only access the data of normal fruit instances but must be able to detect anomalous fruits from tested images. 
 
-**A pretext task** for self-supervised learning is configured by CH-Rand, in which a classifier is to detect randomised images `x'=CHR(x)`, where `CHR` permutes the RGB channels in some normal image `x` with a possibility of repeatition (e.g., RRR, RRG, RRB, RGR, ..., or BBB) &mdash; i.e., 26 possible permuation outcomes for `x'` exist excluding RGB, as shown below and in more in [Examples](https://github.com/ctyeong/CH-Rand#examples).
+![](Figs/strawberries.jpg)
+
+**A pretext task** for self-supervised learning is configured by CH-Rand, in which a classifier is to detect channel-randomised images `x'=CHR(x)`, where `CHR` permutes the RGB channels in some normal image `x` with a possibility of repeatition (e.g., RRR, RRG, RRB, RGR, ..., or BBB) &mdash; i.e., 26 possible permuation outcomes for `x'` exist excluding RGB, as shown below and in more in [Examples](https://github.com/ctyeong/CH-Rand#examples).
 
 ![](Figs/rands.png)
 
