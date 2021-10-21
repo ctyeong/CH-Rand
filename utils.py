@@ -106,7 +106,12 @@ def get_xy(imgs, mode=None, in_size=(64,64), augmentations=None, jitter=None, de
         
         if i in ag_idx:
             x, c = segmentation_ch_shuffle(x, rand_pixels=True, mode=mode, sobel_app=False, delta=delta)
-            y_ag[i] = c + 1 # 1 ~ n_channels 
+
+            if ch_label:
+                y_ag[i] = c + 1 # 1 ~ n_channels 
+                
+            else:
+                y_ag[i] = 1.
 
         x_ag[i] = standardize(x)
     
