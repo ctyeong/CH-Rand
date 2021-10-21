@@ -18,6 +18,7 @@
     n_neighbors: [1, 3, 5, 10], # Numbers of neighbors for distance calculation
     epoch_size: 8, # Number of batch updates per epoch
     batch_size: 128, 
+    ch_label: False, # Get labels from 0 to number of possibilities
 
     aug_mode: CH-Rand, # {CH-Rand, CH-Perm, CH-Split}
     portion: 1., # Portion of pixels to apply augmentation

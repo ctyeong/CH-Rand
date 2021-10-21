@@ -65,10 +65,12 @@ def get_input_pool(x, num_processors=2):
     return y
 
 
-def get_xy_in_parallel(p, imgs, num_processors=1, mode=None, in_size=(64,64,3), augmentations=None, jitter=None, delta=1.): 
+def get_xy_in_parallel(p, imgs, num_processors=1, mode=None, in_size=(64,64,3), augmentations=None, 
+                       jitter=None, delta=1., ch_label=False): 
     
     x_in = get_input_pool(imgs, num_processors)
-    outs = p.starmap(get_xy, zip(x_in, repeat(mode), repeat(in_size), repeat(augmentations), repeat(jitter), repeat(delta)))
+    outs = p.starmap(get_xy, zip(x_in, repeat(mode), repeat(in_size), repeat(augmentations), 
+                     repeat(jitter), repeat(delta), repeat(ch_label)))
 
     # Collect from multi processes
     x_out = np.concatenate([out[0] for out in outs], axis=0)
@@ -77,27 +79,38 @@ def get_xy_in_parallel(p, imgs, num_processors=1, mode=None, in_size=(64,64,3), 
     return x_out, y_out
 
         
-def get_xy(imgs, mode=None, in_size=(64,64), augmentations=None, jitter=None, delta=1.):
+def get_xy(imgs, mode=None, in_size=(64,64), augmentations=None, jitter=None, delta=1., ch_label=False):
+
+#     ag_idx = np.random.choice(len(imgs), size=len(imgs)//2, replace=False)
+
+    if ch_label:
+        if mode == 'CH-Rand':
+            ag_idx = random.sample(range(len(imgs)), int(len(imgs)*26/27))
+        elif mode == 'CH-Perm':
+            ag_idx = random.sample(range(len(imgs)), int(len(imgs)*5/6))
+        
+    else:
+        ag_idx = random.sample(range(len(imgs)), len(imgs)//2)
     
-    ag_idx = np.random.choice(len(imgs), size=len(imgs)//2, replace=False)
     x_ag = np.empty((len(imgs),)+in_size)
     y_ag = np.zeros((len(imgs),), dtype=np.float32)
 
     for i in range(len(imgs)):
 
         x = imgs[i]
-
+        
         # Traditional augmentation: jitter, flip
         if augmentations is not None:
             for augmentation in augmentations:
                 x = augmentation(x)
         
         if i in ag_idx:
-            x, _ = segmentation_ch_shuffle(x, rand_pixels=True, mode=mode, sobel_app=False, delta=delta)
+            x, c = segmentation_ch_shuffle(x, rand_pixels=True, mode=mode, sobel_app=False, delta=delta)
+            y_ag[i] = c + 1 # 1 ~ n_channels 
 
         x_ag[i] = standardize(x)
     
-    y_ag[ag_idx] = 1. # augmented
+#     y_ag[ag_idx] = 1. # augmented
     
     return x_ag, y_ag
 
@@ -148,7 +161,7 @@ def segmentation_ch_shuffle(x, sobel_app=False, rand_pixels=False, mode='CH-Rand
     ########## How? ##########
     if mode == 'BLANK':
         img[mask] = 0
-        chs = None
+        ch_choice = 0
 
     # channel randomisation
     elif mode == 'CH-Rand':
@@ -156,22 +169,28 @@ def segmentation_ch_shuffle(x, sobel_app=False, rand_pixels=False, mode='CH-Rand
             chs = np.asarray(random.choices([0,1,2], k=3))
             if not np.all(chs == np.arange(3)):
                 break
-        img[mask] = img[mask][..., chs]
+        chs = [[0,0,0], [0,0,1], [0,0,2], [0,1,0], [0,1,1], 
+               [0,2,0], [0,2,1], [0,2,2], [1,0,0], [1,0,1], [1,0,2],
+               [1,1,0], [1,1,1], [1,1,2], [1,2,0], [1,2,1], [1,2,2],
+               [2,0,0], [2,0,1], [2,0,2], [2,1,0], [2,1,1], [2,1,2],
+               [2,2,0], [2,2,1], [2,2,2]]
+        ch_choice = random.choice(range(len(chs)))
+        img[mask] = img[mask][..., chs[ch_choice]]
 
     # channel permutation
     elif mode == 'CH-Perm': 
         chs = [[0,2,1],[1,0,2],[1,2,0],[2,0,1],[2,1,0]]
-        ch = random.choice(range(len(chs)))
-        img[mask] = img[mask][..., chs[ch]]
-        chs = ch # test for 6-way cls
-    
+        ch_choice = random.choice(range(len(chs)))
+        img[mask] = img[mask][..., chs[ch_choice]]
+        
     # channel splitting
     elif mode == 'CH-Split':
-        chs = random.choice([0,1,2])
+        ch_choice = random.choice([0,1,2])
         for i in range(3):
-            img[mask, i] = img[mask][..., chs]
+            img[mask, i] = img[mask][..., ch_choice]
                      
     else:
         print('No {} mode'.format(mode))
+        ch_choice = -1
 
-    return img, chs   
+    return img, ch_choice   
