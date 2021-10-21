@@ -81,7 +81,8 @@ def get_xy_in_parallel(p, imgs, num_processors=1, mode=None, in_size=(64,64,3), 
         
 def get_xy(imgs, mode=None, in_size=(64,64), augmentations=None, jitter=None, delta=1., ch_label=False):
 
-#     ag_idx = np.random.choice(len(imgs), size=len(imgs)//2, replace=False)
+    x_ag = np.empty((len(imgs),)+in_size)
+    y_ag = np.zeros((len(imgs),), dtype=np.float32)
 
     if ch_label:
         if mode == 'CH-Rand':
@@ -92,9 +93,6 @@ def get_xy(imgs, mode=None, in_size=(64,64), augmentations=None, jitter=None, de
     else:
         ag_idx = random.sample(range(len(imgs)), len(imgs)//2)
     
-    x_ag = np.empty((len(imgs),)+in_size)
-    y_ag = np.zeros((len(imgs),), dtype=np.float32)
-
     for i in range(len(imgs)):
 
         x = imgs[i]
@@ -105,17 +103,20 @@ def get_xy(imgs, mode=None, in_size=(64,64), augmentations=None, jitter=None, de
                 x = augmentation(x)
         
         if i in ag_idx:
-            x, c = segmentation_ch_shuffle(x, rand_pixels=True, mode=mode, sobel_app=False, delta=delta)
+            if mode == 'CH-Rand' or mode == 'CH-Perm':
+                x, c = segmentation_ch_shuffle(x, rand_pixels=True, mode=mode, sobel_app=False, delta=delta)
+
+            elif mode == 'CutPaste':
+                x = cut_paste(x, area_ratios=(.02,.15), aspect_widths=(.3, 1.), aspect_heights=(1.,3.3),
+                              jitter=augmentations[0], verbose=False)
 
             if ch_label:
                 y_ag[i] = c + 1 # 1 ~ n_channels 
-                
+
             else:
                 y_ag[i] = 1.
 
         x_ag[i] = standardize(x)
-    
-#     y_ag[ag_idx] = 1. # augmented
     
     return x_ag, y_ag
 
@@ -199,3 +200,57 @@ def segmentation_ch_shuffle(x, sobel_app=False, rand_pixels=False, mode='CH-Rand
         ch_choice = -1
 
     return img, ch_choice   
+
+
+def cut_paste(img, area_ratios=(.02, .15), aspect_widths=(.3, 1.), aspect_heights=(1.,3.3), 
+              verbose=False, jitter=None):
+
+    (width, height) = img.size
+    area_ratio = random.uniform(area_ratios[0], area_ratios[1])
+    max_area = height * width * area_ratio
+    
+    # sample width and height ratios
+    aspect_width = random.uniform(aspect_widths[0], aspect_widths[1])
+    aspect_height = random.uniform(aspect_heights[0], aspect_heights[1])
+    
+    # determine width and height 
+    unit = np.sqrt(max_area/(aspect_width*aspect_height))
+    patch_width = np.minimum(int(unit * aspect_width), width)
+    patch_height = np.minimum(int(unit * aspect_height), height)
+    
+    # cut 
+    rand_x = random.randint(0, width-patch_width) if width-patch_width >= 1 else 0
+    rand_y = random.randint(0, height-patch_height) if height-patch_height >= 1 else 0
+    
+    # vars for paste
+    while True:
+        rand_x_p = random.randint(0, width-patch_width) if width-patch_width >= 1 else 0
+        rand_y_p = random.randint(0, height-patch_height) if height-patch_height >= 1 else 0
+
+        if rand_x != rand_x_p or rand_y != rand_y_p: 
+            break
+            
+    # extract patch
+    patch = img.crop((rand_x, rand_y, rand_x+patch_width, rand_y+patch_height))
+    
+    # jitter in patch
+    patch = patch if jitter is None else jitter(patch)
+    
+    if verbose:
+        print('area ratio={:.03f}'.format(area_ratio))
+        print('aspect width={:.03f}, aspect height={:.03f}'.format(aspect_width, aspect_height))
+        print('patch width={:.03f}, patch height={:.03f}'.format(patch_width, patch_height))
+        print('cut from ({}, {})'.format(rand_x, rand_y))
+        print('paste at ({}, {})\n'.format(rand_x_p, rand_y_p))
+    
+    # make numpy array
+    img, patch = np.array(img), np.asarray(patch)
+
+    # paste
+    img[rand_y_p:rand_y_p+patch_height, rand_x_p:rand_x_p+patch_width] = patch
+    
+    # if random.random() < .01: 
+    #     img2 = Image.fromarray(img)
+    #     img2.save('cutpaste_ex.png')
+
+    return img

@@ -20,8 +20,8 @@
     batch_size: 128, 
     ch_label: False, # Get labels from 0 to number of possibilities
 
-    aug_mode: CH-Rand, # {CH-Rand, CH-Perm, CH-Split}
-    portion: 1., # Portion of pixels to apply augmentation
+    aug_mode: CH-Rand, # {CH-Rand, CH-Perm, CH-Split, CutPaste}
+    portion: 1., # Portion of pixels to apply augmentation in CH-Rand, CH-Perm, CH-Split
     
     tensorboard_dir: ./tb_logs,
     model_dir: ./saved_models,
