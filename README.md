@@ -2,7 +2,7 @@
 
 This repository is the official release of the codes used for the following preprint: 
 
-***"Self-supervised Representation Learning for Reliable Robotic Monitoring of Fruit Anomalies"**. Taeyeong Choi, Owen Would, Adrian Salazar-Gomez, and Grzegorz Cielniak.* [\[arXiv:2109.10135\]](https://arxiv.org/abs/2109.10135) 
+***"Self-supervised Representation Learning for Reliable Robotic Monitoring of Fruit Anomalies"**. Taeyeong Choi, Owen Would, Adrian Salazar-Gomez, and Grzegorz Cielniak. ICRA2022* [\[arXiv:2109.10135\]](https://arxiv.org/abs/2109.10135) 
 
 ![](Figs/camera_rig.jpg)
 
@@ -184,11 +184,13 @@ Here are brief evaluation results of CH-Rand and its variant &mdash; CH-Perm &md
 
 # Citation
 ```
-@article{CWSC21,
-    title={Self-supervised Representation Learning for Reliable Robotic Monitoring of Fruit Anomalies}, 
-    author={Taeyeong Choi and Owen Would and Adrian Salazar-Gomez and Grzegorz Cielniak},
-    year={2021},
-    journal={arXiv},
+@inproceedings{CWSC21,
+  title={Self-supervised Representation Learning for Reliable Robotic Monitoring of Fruit Anomalies},
+  author={Choi, Taeyeong and Would, Owen and Salazar-Gomez, Adrian and Cielniak, Grzegorz},
+  booktitle={2022 International Conference on Robotics and Automation (ICRA)},
+  pages={2266--2272},
+  year={2022},
+  organization={IEEE}
 }
 ```
 
