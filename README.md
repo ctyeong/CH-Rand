@@ -197,5 +197,5 @@ Here are brief evaluation results of CH-Rand and its variant &mdash; CH-Perm &md
 
 # Contact
 
-If there is any questions about the dataset, please do not hesitate to drop an email to tchoi@lincoln.ac.uk or gcielniak@lincoln.ac.uk. Thanks!
+If there is any questions about the dataset, please do not hesitate to drop an email to taechoi@ucdavis.edu or gcielniak@lincoln.ac.uk. Thanks!
 
