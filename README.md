@@ -1,8 +1,10 @@
 # Channel Randomisation (CH-Rand)
 
-This repository is the official release of the codes used for the following preprint: 
+This repository is the official release of the codes used for the following papers: 
 
 ***"Self-supervised Representation Learning for Reliable Robotic Monitoring of Fruit Anomalies"**. Taeyeong Choi, Owen Would, Adrian Salazar-Gomez, and Grzegorz Cielniak. ICRA2022* [\[arXiv:2109.10135\]](https://arxiv.org/abs/2109.10135) 
+
+***"Channel Randomisation: Self-Supervised Representation Learning for Reliable Visual Anomaly Detection in Specialty Crops"**. Taeyeong Choi, Owen Would, Adrian Salazar-Gomez, Xin Liu, and Grzegorz Cielniak. Journal of Computers and Electronics in Agriculture.*  [\[Link\]](https://doi.org/10.1016/j.compag.2024.109416) 
 
 ![](Figs/camera_rig.jpg)
 
@@ -183,6 +185,7 @@ Here are brief evaluation results of CH-Rand and its variant &mdash; CH-Perm &md
 
 
 # Citation
+Please cite one of the following papers when including the dataset in your work for publication:
 ```
 @inproceedings{CWSC21,
   title={Self-supervised Representation Learning for Reliable Robotic Monitoring of Fruit Anomalies},
@@ -192,10 +195,19 @@ Here are brief evaluation results of CH-Rand and its variant &mdash; CH-Perm &md
   year={2022},
   organization={IEEE}
 }
+@article{CWSLC24,
+  title={Channel randomisation: Self-supervised representation learning for reliable visual anomaly detection in speciality crops},
+  author={Choi, Taeyeong and Would, Owen and Salazar-Gomez, Adrian and Liu, Xin and Cielniak, Grzegorz},
+  journal={Computers and Electronics in Agriculture},
+  volume={226},
+  pages={109416},
+  year={2024},
+  publisher={Elsevier}
+}
 ```
 
 
 # Contact
 
-If there is any questions about the dataset, please do not hesitate to drop an email to taechoi@ucdavis.edu or gcielniak@lincoln.ac.uk. Thanks!
+If there is any questions about the dataset, please do not hesitate to drop an email to tchoi3@kennesaw.edu or gcielniak@lincoln.ac.uk. Thanks!
 
